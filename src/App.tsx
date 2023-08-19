@@ -23,12 +23,12 @@ import { ModeToggle } from './components/mode-toggle';
 
 const App: React.FC = () => {
 	const [teamXG, setTeamXG] = useState([]);
-	const [jsonFile, setJsonFile] = useState('110');
+	const [jsonFile, setJsonFile] = useState('10');
 
 	const fetchData = async (file) => {
 		try {
 			const response = await fetch(
-				`https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/3754${file}.json`
+				`https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/37541${file}.json`
 			);
 			const jsonData = await response.json();
 
@@ -73,13 +73,13 @@ const App: React.FC = () => {
 						<CardTitle>DRAFTPURIST - Expected Goals (xG) Accumulator</CardTitle>
 						<CardDescription>
 							Pair 2 English teams and see how much expected goals they had when
-							faced one another
+							facing each another
 						</CardDescription>
 					</CardHeader>
 
 					<CardContent>
 						<p className="font-mono text-sm pb-2">
-							Type a number for a PL match
+							Type a number from 01-99 for a PL 15/16 match
 						</p>
 						<Input
 							type="text"
@@ -92,9 +92,9 @@ const App: React.FC = () => {
 								<CartesianGrid strokeDasharray="6 6" stroke="gray" />
 								<XAxis dataKey="team" />
 								<YAxis />
-								<Tooltip wrapperStyle={{ color: 'cornflowerblue' }} />
+								<Tooltip wrapperStyle={{ color: '#fc6504' }} />
 								<Legend />
-								<Bar dataKey="AxG" fill="cornflowerblue" barSize={60} />
+								<Bar dataKey="AxG" fill="#fc6504" barSize={60} />
 							</BarChart>
 						</div>
 					</CardContent>
