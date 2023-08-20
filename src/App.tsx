@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import {
 	BarChart,
@@ -21,18 +22,23 @@ import {
 import Footer from './components/footer';
 import { ModeToggle } from './components/mode-toggle';
 
+interface TeamXGData {
+	team: string;
+	AxG: number; // You should replace 'number' with the correct data type for AxG
+}
+
 const App: React.FC = () => {
-	const [teamXG, setTeamXG] = useState([]);
+	const [teamXG, setTeamXG] = useState<TeamXGData[]>([]);
 	const [jsonFile, setJsonFile] = useState('10');
 
-	const fetchData = async (file) => {
+	const fetchData = async (file: any) => {
 		try {
 			const response = await fetch(
 				`https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/37541${file}.json`
 			);
 			const jsonData = await response.json();
 
-			const xG = jsonData.reduce((acc, event) => {
+			const xG = jsonData.reduce((acc: any, event: any) => {
 				if (event.shot) {
 					const teamName = event.team.name;
 					const xG = event.shot.statsbomb_xg;
@@ -48,7 +54,7 @@ const App: React.FC = () => {
 
 			const data = Object.entries(xG).map(([teamName, AxG]) => ({
 				team: teamName,
-				AxG,
+				AxG: Number(AxG),
 			}));
 
 			setTeamXG(data);
