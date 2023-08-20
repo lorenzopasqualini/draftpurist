@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import {
+	ResponsiveContainer,
 	BarChart,
 	Bar,
 	XAxis,
@@ -69,12 +70,12 @@ const App: React.FC = () => {
 
 	return (
 		<ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-			<div className="flex justify-end m-2">
+			<div className="flex justify-end mx-8 my-4 md:m-4">
 				<ModeToggle />
 			</div>
 
-			<div className="flex justify-center m-8">
-				<Card>
+			<div className="flex flex-col items-center m-8">
+				<Card className="w-full md:w-3/4 lg:w-2/3">
 					<CardHeader>
 						<CardTitle>DRAFTPURIST - Expected Goals (xG) Accumulator</CardTitle>
 						<CardDescription>
@@ -84,29 +85,31 @@ const App: React.FC = () => {
 					</CardHeader>
 
 					<CardContent>
-						<p className="font-mono text-sm pb-2">
+						{/* Examples: 24-35-52-58 */}
+						<label htmlFor="jsonFile" className="font-mono text-sm pb-2">
 							Type a number from 01-99 for a PL 15/16 match
-						</p>
+						</label>
 						<Input
 							type="text"
 							value={jsonFile}
 							onChange={(e) => setJsonFile(e.target.value)}
 						/>
-
-						<div className="my-8">
-							<BarChart width={600} height={600} data={teamXG}>
-								<CartesianGrid strokeDasharray="6 6" stroke="gray" />
-								<XAxis dataKey="team" />
-								<YAxis />
-								<Tooltip wrapperStyle={{ color: '#fc6504' }} />
-								<Legend />
-								<Bar dataKey="AxG" fill="#fc6504" barSize={60} />
-							</BarChart>
+						<div className="my-8 flex justify-center">
+							<ResponsiveContainer width="100%" height={500}>
+								<BarChart data={teamXG}>
+									<CartesianGrid strokeDasharray="6 6" stroke="gray" />
+									<XAxis dataKey="team" />
+									<YAxis />
+									<Tooltip wrapperStyle={{ color: '#fc6504' }} />
+									<Legend />
+									<Bar dataKey="AxG" fill="#fc6504" barSize={50} />
+								</BarChart>
+							</ResponsiveContainer>
 						</div>
 					</CardContent>
 
 					<CardFooter>
-						<img src="/sb.svg" width="100" height="50" />
+						<img src="/sb.svg" alt="statsbomb" width="100" height="50" />
 					</CardFooter>
 				</Card>
 			</div>
